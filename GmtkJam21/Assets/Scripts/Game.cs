@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Game : MonoBehaviour
 {
@@ -11,10 +12,12 @@ public class Game : MonoBehaviour
     public GameConfig config;
     public GameBackground background;
     public StarCreator starCreator;
+    public StartMenu startMenu;
 
     private void Awake()
     {
         inst = this;
+        startMenu.OnRandomizeSeedButtonPressed();
         starCreator.CreateRandomStars(config.starsAmount, config. seed);
     }
 
