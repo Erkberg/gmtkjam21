@@ -81,6 +81,7 @@ public class GameInteraction : MonoBehaviour
                         currentStarLine.SetEndStar(focusedStar);
                         finishedStarLines.Add(currentStarLine);
                         Game.inst.groundManager.OnLineCreated(currentStarLine);
+                        Game.inst.audio.OnAddLine();
                         
                         currentStarLine = Instantiate(starLinePrefab, starLinesHolder);
                         currentStarLine.SetStartStar(focusedStar);
@@ -91,6 +92,7 @@ public class GameInteraction : MonoBehaviour
                     // regular new line at focused star
                     currentStarLine = Instantiate(starLinePrefab, starLinesHolder);
                     currentStarLine.SetStartStar(focusedStar);
+                    Game.inst.audio.OnAddLine();
                 }
             }
         }
@@ -110,6 +112,7 @@ public class GameInteraction : MonoBehaviour
             finishedStarLines.Remove(currentStarLine);
         }
 
+        Game.inst.audio.OnRemoveLine();
         currentStarLine.Kill();
         currentStarLine = null;
     }
@@ -125,6 +128,7 @@ public class GameInteraction : MonoBehaviour
             if (hitStarLine && !currentStarLine && Mouse.current.rightButton.wasPressedThisFrame)
             {
                 Game.inst.groundManager.OnLineDestroyed(hitStarLine);
+                Game.inst.audio.OnRemoveLine();
                 hitStarLine.Kill();
             }
         }
@@ -157,11 +161,16 @@ public class GameInteraction : MonoBehaviour
             if (focusedStar && focusedStar != hitStar)
             {
                 focusedStar.SetFocused(false);
+                Game.inst.audio.OnUnfocusStar();
             }
             else
             {
-                focusedStar = hitStar;
-                focusedStar.SetFocused(true);
+                if (!focusedStar)
+                {
+                    Game.inst.audio.OnFocusStar();
+                    focusedStar = hitStar;
+                    focusedStar.SetFocused(true);
+                }
             }  
         }
         else
@@ -174,6 +183,7 @@ public class GameInteraction : MonoBehaviour
     {
         if (focusedStar)
         {
+            Game.inst.audio.OnUnfocusStar();
             focusedStar.SetFocused(false);
             focusedStar = null;
         }

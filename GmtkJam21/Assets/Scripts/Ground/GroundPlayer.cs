@@ -35,6 +35,7 @@ public class GroundPlayer : MonoBehaviour
     {
         if (other.gameObject.layer == 4)
         {
+            Game.inst.audio.OnDrown();
             Respawn();
         }
     }

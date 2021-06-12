@@ -10,8 +10,21 @@ public class GameAudio : MonoBehaviour
     public AudioSource asAtmo;
     public AudioSource asSounds;
 
+    [Space]
     public AudioClip atmoAbove;
     public AudioClip atmoBelow;
+
+    public AudioClip switchAbove;
+    public AudioClip switchBelow;
+
+    [Space]
+    public AudioClip drownClip;
+
+    public AudioClip focusStarClip;
+    public AudioClip unfocusStarClip;
+
+    public AudioClip addLineClip;
+    public AudioClip removeLineClip;
 
     private float atmoVolume;
 
@@ -24,12 +37,39 @@ public class GameAudio : MonoBehaviour
 
     public void OnSwitchToGround()
     {
+        asSounds.PlayOneShotRandomVolumePitch(switchBelow);
         StartCoroutine(asAtmo.FadeOut(FadeDuration, () => PlayAtmo(atmoBelow)));
     }
 
     public void OnSwitchToSky()
     {
+        asSounds.PlayOneShotRandomVolumePitch(switchAbove);
         StartCoroutine(asAtmo.FadeOut(FadeDuration, () => PlayAtmo(atmoAbove)));
+    }
+
+    public void OnDrown()
+    {
+        asSounds.PlayOneShotRandomVolumePitch(drownClip);
+    }
+
+    public void OnFocusStar()
+    {
+        asSounds.PlayOneShotRandomVolume(focusStarClip);
+    }
+    
+    public void OnUnfocusStar()
+    {
+        //asSounds.PlayOneShotRandomVolumePitch(unfocusStarClip);
+    }
+    
+    public void OnAddLine()
+    {
+        asSounds.PlayOneShotRandomVolume(addLineClip);
+    }
+    
+    public void OnRemoveLine()
+    {
+        asSounds.PlayOneShotRandomVolume(removeLineClip);
     }
 
     private void PlayAtmo(AudioClip clip)
