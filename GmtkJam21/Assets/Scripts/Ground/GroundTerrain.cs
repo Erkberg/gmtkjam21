@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class GroundTerrain : MonoBehaviour
 {
+    public float starHeight = 1f;
+    public float starLineHeight = 1f;
+    
     private void OnDrawGizmos()
     {
         if (Application.isPlaying)
