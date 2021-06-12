@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class StarLineLink : MonoBehaviour
 {
+    public StarLine starLine;
+    
     public void Init(StarLine starLine)
     {
+        this.starLine = starLine;
         transform.SetScaleX(starLine.GetLength() / 2);
         transform.right = starLine.GetDirection();
     }

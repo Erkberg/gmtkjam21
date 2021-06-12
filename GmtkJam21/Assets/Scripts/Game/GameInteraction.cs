@@ -108,7 +108,6 @@ public class GameInteraction : MonoBehaviour
         if (finishedStarLines.Contains(currentStarLine))
         {
             finishedStarLines.Remove(currentStarLine);
-            Game.inst.groundManager.OnLineDestroyed(currentStarLine);
         }
 
         currentStarLine.Kill();
@@ -125,6 +124,7 @@ public class GameInteraction : MonoBehaviour
             StarLine hitStarLine = hit.transform.GetComponent<StarLine>();
             if (hitStarLine && !currentStarLine && Mouse.current.rightButton.wasPressedThisFrame)
             {
+                Game.inst.groundManager.OnLineDestroyed(hitStarLine);
                 hitStarLine.Kill();
             }
         }

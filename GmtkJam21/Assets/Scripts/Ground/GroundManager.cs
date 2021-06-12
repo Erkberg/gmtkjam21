@@ -25,6 +25,7 @@ public class GroundManager : MonoBehaviour
     {
         StarIsland island = Instantiate(starIslandPrefab, starIslandsHolder);
         island.transform.position = star.transform.position - offsetToStars;
+        island.id = star.id;
         starIslands.Add(island);
     }
 
@@ -38,7 +39,15 @@ public class GroundManager : MonoBehaviour
 
     public void OnLineDestroyed(StarLine line)
     {
-        
+        foreach (StarLineLink starLineLink in starLineLinks.ToList())
+        {
+            if (starLineLink.starLine.id == line.id)
+            {
+                starLineLinks.Remove(starLineLink);
+                starLineLink.Kill();
+                break;
+            }
+        }
     }
 
     public void ResetAll()

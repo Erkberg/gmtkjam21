@@ -8,6 +8,7 @@ public class StarLine : MonoBehaviour
     public MeshCollider meshCollider;
     public InteractableStar startStar;
     public InteractableStar endStar;
+    public string id;
 
     public void SetStartStar(InteractableStar startStar)
     {
@@ -22,6 +23,7 @@ public class StarLine : MonoBehaviour
         name += $"->{endStar.id}";
         SetEndPosition(endStar.transform.position);
         SetCollider();
+        id = startStar.id + " - " + endStar.id;
     }
 
     public void SetEndPosition(Vector3 pos)
