@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class StarCreator : MonoBehaviour
@@ -12,6 +13,12 @@ public class StarCreator : MonoBehaviour
     public float maxPositionZ = 3.5f;
 
     private List<InteractableStar> stars = new List<InteractableStar>();
+
+    public void RecreateRandomStars(int amount, int seed)
+    {
+        ClearStars();
+        CreateRandomStars(amount, seed);
+    }
     
     public void CreateRandomStars(int amount, int seed)
     {
@@ -23,6 +30,16 @@ public class StarCreator : MonoBehaviour
             star.transform.position = GetRandomValidStarPosition();
             stars.Add(star);
         }
+    }
+
+    private void ClearStars()
+    {
+        foreach (InteractableStar star in stars.ToList())
+        {
+            Destroy(star.gameObject);
+        }
+        
+        stars.Clear();
     }
 
     private Vector3 GetRandomValidStarPosition()
