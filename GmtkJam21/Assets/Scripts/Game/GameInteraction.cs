@@ -80,6 +80,7 @@ public class GameInteraction : MonoBehaviour
                         // end line at end star and immediately start new line there
                         currentStarLine.SetEndStar(focusedStar);
                         finishedStarLines.Add(currentStarLine);
+                        Game.inst.groundManager.OnLineCreated(currentStarLine);
                         
                         currentStarLine = Instantiate(starLinePrefab, starLinesHolder);
                         currentStarLine.SetStartStar(focusedStar);
@@ -105,8 +106,11 @@ public class GameInteraction : MonoBehaviour
     private void CancelStarLine()
     {
         if (finishedStarLines.Contains(currentStarLine))
+        {
             finishedStarLines.Remove(currentStarLine);
-        
+            Game.inst.groundManager.OnLineDestroyed(currentStarLine);
+        }
+
         currentStarLine.Kill();
         currentStarLine = null;
     }

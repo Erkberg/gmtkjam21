@@ -41,6 +41,16 @@ public class StarLine : MonoBehaviour
         return (startStar.transform.position + endStar.transform.position) / 2;
     }
 
+    public float GetLength()
+    {
+        return Vector3.Distance(startStar.transform.position, endStar.transform.position);
+    }
+
+    public Vector3 GetDirection()
+    {
+        return endStar.transform.position - startStar.transform.position;
+    }
+
     public void Kill()
     {
         Destroy(gameObject);

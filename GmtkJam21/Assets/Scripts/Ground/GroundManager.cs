@@ -31,6 +31,7 @@ public class GroundManager : MonoBehaviour
     public void OnLineCreated(StarLine line)
     {
         StarLineLink link = Instantiate(starLineLinkPrefab, starLineLinksHolder);
+        link.transform.position = line.GetMidPoint() - offsetToStars;
         link.Init(line);
         starLineLinks.Add(link);
     }

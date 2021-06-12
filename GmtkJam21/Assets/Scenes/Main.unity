@@ -17072,7 +17072,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starIslandPrefab: {fileID: 7926975479455023217, guid: 668eabf07b0bfcb45b91475285022e27, type: 3}
-  starLineLinkPrefab: {fileID: 0}
+  starLineLinkPrefab: {fileID: 1786467359414723299, guid: a4816c55fa9873e45abc6b52fa3aea8c, type: 3}
   starIslandsHolder: {fileID: 640249453}
   starLineLinksHolder: {fileID: 881787679}
   offsetToStars: {x: 0, y: 16, z: 0}
