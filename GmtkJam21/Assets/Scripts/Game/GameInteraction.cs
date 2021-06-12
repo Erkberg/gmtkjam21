@@ -16,6 +16,12 @@ public class GameInteraction : MonoBehaviour
         CheckFocusedStar();
         CheckMouseButtons();
         CheckStarLineEndPosition();
+        CheckMouseWheel();
+    }
+
+    private void CheckMouseWheel()
+    {
+        
     }
 
     private void CheckStarLineEndPosition()
