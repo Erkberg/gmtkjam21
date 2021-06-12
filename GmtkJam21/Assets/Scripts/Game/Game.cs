@@ -16,6 +16,7 @@ public class Game : MonoBehaviour
     public StarCreator starCreator;
     public StartMenu startMenu;
     public IngameCamera cam;
+    public GroundManager groundManager;
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class Game : MonoBehaviour
     public void SwitchToGround()
     {
         ingameState = IngameState.Ground;
+        groundManager.OnSwitchToGround();
         cam.SwitchToGround();
     }
     

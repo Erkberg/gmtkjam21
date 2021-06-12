@@ -30,6 +30,7 @@ public class StarCreator : MonoBehaviour
             star.InitWithId(i);
             star.transform.position = GetRandomValidStarPosition();
             stars.Add(star);
+            Game.inst.groundManager.OnStarCreated(star);
         }
     }
 
@@ -41,6 +42,7 @@ public class StarCreator : MonoBehaviour
         }
         
         stars.Clear();
+        Game.inst.groundManager.ResetIslands();
     }
 
     private Vector3 GetRandomValidStarPosition()

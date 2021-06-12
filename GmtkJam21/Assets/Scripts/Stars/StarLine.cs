@@ -36,6 +36,11 @@ public class StarLine : MonoBehaviour
         meshCollider.sharedMesh = mesh;
     }
 
+    public Vector3 GetMidPoint()
+    {
+        return (startStar.transform.position + endStar.transform.position) / 2;
+    }
+
     public void Kill()
     {
         Destroy(gameObject);
