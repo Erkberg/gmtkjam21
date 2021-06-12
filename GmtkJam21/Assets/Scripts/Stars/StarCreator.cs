@@ -12,7 +12,7 @@ public class StarCreator : MonoBehaviour
     public float maxPositionX = 6.5f;
     public float maxPositionZ = 3.5f;
 
-    private List<InteractableStar> stars = new List<InteractableStar>();
+    public List<InteractableStar> stars = new List<InteractableStar>();
 
     public void RecreateRandomStars(int amount, int seed)
     {

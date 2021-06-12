@@ -16,6 +16,7 @@ public class StartMenu : MonoBehaviour
     public void OnStartButtonPressed()
     {
         holder.SetActive(false);
+        Game.inst.OnGameStarted();
     }
 
     public void OnStarsAmountChanged(float newAmount)

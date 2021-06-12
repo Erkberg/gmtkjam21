@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,20 +12,45 @@ public class GameInteraction : MonoBehaviour
     public InteractableStar focusedStar;
     public StarLine currentStarLine;
 
+    public List<StarLine> finishedStarLines = new List<StarLine>();
+
     void Update()
     {
-        CheckFocusedStar();
-        CheckFocusedStarLine();
+        if (Game.inst.IsIngame())
+        {
+            switch (Game.inst.ingameState)
+            {
+                case Game.IngameState.Sky:
+                    CheckFocusedStar();
+                    CheckFocusedStarLine();
         
-        CheckMouseButtons();
-        CheckStarLineEndPosition();
+                    CheckMouseButtons();
+                    CheckStarLineEndPosition();
         
-        CheckMouseWheel();
+                    CheckMouseWheel();
+                    break;
+            
+                case Game.IngameState.Ground:
+                    CheckMouseWheel();
+                    break;
+            
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 
     private void CheckMouseWheel()
     {
-        
+        float scrollValue = Mouse.current.scroll.ReadValue().y;
+        if (scrollValue < 0f && Game.inst.ingameState == Game.IngameState.Sky)
+        {
+            Game.inst.SwitchToGround();
+        }
+        else if (scrollValue > 0f && Game.inst.ingameState == Game.IngameState.Ground)
+        {
+            Game.inst.SwitchToSky();
+        }
     }
 
     private void CheckStarLineEndPosition()
@@ -53,6 +79,8 @@ public class GameInteraction : MonoBehaviour
                     {
                         // end line at end star and immediately start new line there
                         currentStarLine.SetEndStar(focusedStar);
+                        finishedStarLines.Add(currentStarLine);
+                        
                         currentStarLine = Instantiate(starLinePrefab, starLinesHolder);
                         currentStarLine.SetStartStar(focusedStar);
                     }
@@ -76,6 +104,9 @@ public class GameInteraction : MonoBehaviour
 
     private void CancelStarLine()
     {
+        if (finishedStarLines.Contains(currentStarLine))
+            finishedStarLines.Remove(currentStarLine);
+        
         currentStarLine.Kill();
         currentStarLine = null;
     }

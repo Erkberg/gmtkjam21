@@ -8,11 +8,14 @@ public class Game : MonoBehaviour
 {
     public static Game inst;
 
-    public GameState gameState;
+    public MenuState menuState = MenuState.StartMenu;
+    public IngameState ingameState = IngameState.Sky;
+
     public GameConfig config;
     public GameBackground background;
     public StarCreator starCreator;
     public StartMenu startMenu;
+    public IngameCamera cam;
 
     private void Awake()
     {
@@ -29,12 +32,41 @@ public class Game : MonoBehaviour
 
     public void OnGameStarted()
     {
-        gameState = GameState.Ingame;
+        menuState = MenuState.MenuClosed;
     }
 
-    public enum GameState
+    public void SwitchToGround()
     {
-        StartMenu,
-        Ingame
+        ingameState = IngameState.Ground;
+        cam.SwitchToGround();
+    }
+    
+    public void SwitchToSky()
+    {
+        ingameState = IngameState.Sky;
+        cam.SwitchToSky();
+    }
+    
+    public void OnOpenedMenu()
+    {
+        menuState = MenuState.StartMenu;
+    }
+
+    public bool IsIngame()
+    {
+        return menuState == MenuState.MenuClosed;
+    }
+
+    public enum MenuState
+    {
+        MenuClosed,
+        StartMenu
+    }
+
+    public enum IngameState
+    {
+        Sky,
+        Ground,
+        Transition
     }
 }
