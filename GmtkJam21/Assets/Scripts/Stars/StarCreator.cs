@@ -27,6 +27,7 @@ public class StarCreator : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             InteractableStar star = Instantiate(starPrefab, starsHolder);
+            star.InitWithId(i);
             star.transform.position = GetRandomValidStarPosition();
             stars.Add(star);
         }
