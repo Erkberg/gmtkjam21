@@ -68,6 +68,11 @@ public class GameInput : MonoBehaviour
     {
         return GetButtonDown(controls.Default.ResetPlayer);
     }
+    
+    public bool GetMenuButtonDown()
+    {
+        return GetButtonDown(controls.Default.Menu);
+    }
     #endregion buttons
     
     #region buttons general

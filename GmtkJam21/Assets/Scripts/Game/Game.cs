@@ -10,7 +10,7 @@ public class Game : MonoBehaviour
     public static Game inst;
 
     public IngameState ingameState = IngameState.Sky;
-    public GameMode gameMode = GameMode.Story;
+    public GameMode gameMode = GameMode.None;
 
     public GameConfig config;
     public GameBackground background;
@@ -35,6 +35,16 @@ public class Game : MonoBehaviour
     }
 
     public void StartGame()
+    {
+        
+    }
+
+    public void PauseGame()
+    {
+        
+    }
+
+    public void ResumeGame()
     {
         
     }
@@ -74,6 +84,7 @@ public class Game : MonoBehaviour
 
     public enum GameMode
     {
+        None,
         Story,
         Sandbox
     }

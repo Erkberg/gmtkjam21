@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class GameMenus : MonoBehaviour
 {
@@ -11,17 +13,55 @@ public class GameMenus : MonoBehaviour
     public GameObject sandboxMenu;
     public GameObject tutorialMenu;
     public GameObject optionsMenu;
+
+    public GameObject mainMenuSubtitle;
+    public GameObject mainMenuContinueButton;
     
     public GameObject menusHolder;
     public TextMeshProUGUI starsAmountText;
     public TMP_InputField seedInputField;
 
     private const string StarsAmountText = "Stars amount: ";
-    
-    #region navigation
-    public void OnOpenedMenu()
+
+    private void Update()
     {
-        menuState = GameMenus.MenuState.StartMenu;
+        CheckMenuButton();
+    }
+
+    #region navigation
+
+    private void CheckMenuButton()
+    {
+        if (Game.inst.input.GetMenuButtonDown())
+        {
+            if (Game.inst.gameMode != Game.GameMode.None)
+            {
+                if (menuState == MenuState.MenuClosed)
+                {
+                    mainMenuSubtitle.SetActive(false);
+                    mainMenuContinueButton.SetActive(true);
+                    menuState = MenuState.StartMenu;
+                    Game.inst.PauseGame();
+                    menusHolder.SetActive(true);
+                    OnBackButtonPressed();
+                }
+                else if (menuState == MenuState.StartMenu)
+                {
+                    OnContinueButtonPressed();
+                }
+                else
+                {
+                    OnBackButtonPressed();
+                }
+            }
+        }
+    }
+    
+    public void OnContinueButtonPressed()
+    {
+        menuState = MenuState.MenuClosed;
+        menusHolder.SetActive(false);
+        Game.inst.ResumeGame();
     }
     
     public void OnStoryButtonPressed()

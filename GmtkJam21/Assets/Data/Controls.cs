@@ -41,6 +41,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""ad39eddc-78ca-48bf-aec4-74000339ca5e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -186,6 +194,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""ResetPlayer"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b689f4c2-b2bb-48fe-88c5-f3a2b7cfddc7"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -197,6 +216,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Default_HorizontalMovement = m_Default.FindAction("HorizontalMovement", throwIfNotFound: true);
         m_Default_VerticalMovement = m_Default.FindAction("VerticalMovement", throwIfNotFound: true);
         m_Default_ResetPlayer = m_Default.FindAction("ResetPlayer", throwIfNotFound: true);
+        m_Default_Menu = m_Default.FindAction("Menu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -249,6 +269,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Default_HorizontalMovement;
     private readonly InputAction m_Default_VerticalMovement;
     private readonly InputAction m_Default_ResetPlayer;
+    private readonly InputAction m_Default_Menu;
     public struct DefaultActions
     {
         private @Controls m_Wrapper;
@@ -256,6 +277,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @HorizontalMovement => m_Wrapper.m_Default_HorizontalMovement;
         public InputAction @VerticalMovement => m_Wrapper.m_Default_VerticalMovement;
         public InputAction @ResetPlayer => m_Wrapper.m_Default_ResetPlayer;
+        public InputAction @Menu => m_Wrapper.m_Default_Menu;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -274,6 +296,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @ResetPlayer.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnResetPlayer;
                 @ResetPlayer.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnResetPlayer;
                 @ResetPlayer.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnResetPlayer;
+                @Menu.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMenu;
+                @Menu.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMenu;
+                @Menu.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMenu;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -287,6 +312,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @ResetPlayer.started += instance.OnResetPlayer;
                 @ResetPlayer.performed += instance.OnResetPlayer;
                 @ResetPlayer.canceled += instance.OnResetPlayer;
+                @Menu.started += instance.OnMenu;
+                @Menu.performed += instance.OnMenu;
+                @Menu.canceled += instance.OnMenu;
             }
         }
     }
@@ -296,5 +324,6 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnHorizontalMovement(InputAction.CallbackContext context);
         void OnVerticalMovement(InputAction.CallbackContext context);
         void OnResetPlayer(InputAction.CallbackContext context);
+        void OnMenu(InputAction.CallbackContext context);
     }
 }
