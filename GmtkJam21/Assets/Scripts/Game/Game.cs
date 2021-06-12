@@ -20,6 +20,7 @@ public class Game : MonoBehaviour
     public GroundPlayer groundPlayer;
     public GameInput input;
     public GameMenus menus;
+    public GameAudio audio;
 
     private void Awake()
     {
@@ -49,12 +50,14 @@ public class Game : MonoBehaviour
         ingameState = IngameState.Ground;
         groundManager.OnSwitchToGround();
         cam.SwitchToGround();
+        audio.OnSwitchToGround();
     }
     
     public void SwitchToSky()
     {
         ingameState = IngameState.Sky;
         cam.SwitchToSky();
+        audio.OnSwitchToSky();
     }
 
     public bool IsIngame()
