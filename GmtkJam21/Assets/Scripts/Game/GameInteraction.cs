@@ -14,8 +14,11 @@ public class GameInteraction : MonoBehaviour
     void Update()
     {
         CheckFocusedStar();
+        CheckFocusedStarLine();
+        
         CheckMouseButtons();
         CheckStarLineEndPosition();
+        
         CheckMouseWheel();
     }
 
@@ -73,8 +76,27 @@ public class GameInteraction : MonoBehaviour
 
     private void CancelStarLine()
     {
-        Destroy(currentStarLine.gameObject);
+        currentStarLine.Kill();
         currentStarLine = null;
+    }
+    
+    private void CheckFocusedStarLine()
+    {
+        RaycastHit hit;
+        Ray ray = mainCam.ScreenPointToRay(Mouse.current.position.ReadValue());
+        
+        if (Physics.Raycast(ray, out hit)) 
+        {
+            StarLine hitStarLine = hit.transform.GetComponent<StarLine>();
+            if (hitStarLine && !currentStarLine && Mouse.current.rightButton.wasPressedThisFrame)
+            {
+                hitStarLine.Kill();
+            }
+        }
+        else
+        {
+            OnNoStarFocused();
+        }
     }
 
     private void CheckFocusedStar()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class StarLine : MonoBehaviour
 {
     public LineRenderer line;
+    public MeshCollider meshCollider;
     public InteractableStar startStar;
     public InteractableStar endStar;
 
@@ -20,10 +21,23 @@ public class StarLine : MonoBehaviour
         this.endStar = endStar;
         name += $"->{endStar.id}";
         SetEndPosition(endStar.transform.position);
+        SetCollider();
     }
 
     public void SetEndPosition(Vector3 pos)
     {
         line.SetPosition(1, pos);
+    }
+
+    private void SetCollider()
+    {
+        Mesh mesh = new Mesh();
+        line.BakeMesh(mesh, true);
+        meshCollider.sharedMesh = mesh;
+    }
+
+    public void Kill()
+    {
+        Destroy(gameObject);
     }
 }
