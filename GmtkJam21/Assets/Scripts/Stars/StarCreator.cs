@@ -32,6 +32,8 @@ public class StarCreator : MonoBehaviour
             stars.Add(star);
             Game.inst.groundManager.OnStarCreated(star);
         }
+        
+        Game.inst.OnStarsCreated();
     }
 
     private void ClearStars()

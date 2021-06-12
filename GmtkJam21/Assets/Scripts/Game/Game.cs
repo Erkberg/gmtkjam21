@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ErksUnityLibrary;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,32 +9,39 @@ public class Game : MonoBehaviour
 {
     public static Game inst;
 
-    public MenuState menuState = MenuState.StartMenu;
     public IngameState ingameState = IngameState.Sky;
+    public GameMode gameMode = GameMode.Story;
 
     public GameConfig config;
     public GameBackground background;
     public StarCreator starCreator;
-    public StartMenu startMenu;
     public IngameCamera cam;
     public GroundManager groundManager;
+    public GroundPlayer groundPlayer;
+    public GameInput input;
+    public GameMenus menus;
 
     private void Awake()
     {
         inst = this;
-        startMenu.OnRandomizeSeedButtonPressed();
+        menus.OnRandomizeSeedButtonPressed();
         starCreator.CreateRandomStars(config.starsAmount, config. seed);
+    }
+
+    public void OnStarsCreated()
+    {
+        groundPlayer.Spawn(groundManager.starIslands.GetRandomItem().transform.position);
+    }
+
+    public void StartGame()
+    {
+        
     }
 
     public void OnConfigChanged()
     {
         starCreator.RecreateRandomStars(config.starsAmount, config. seed);
         background.ResetBackgrounds();
-    }
-
-    public void OnGameStarted()
-    {
-        menuState = MenuState.MenuClosed;
     }
 
     public void SwitchToGround()
@@ -48,21 +56,10 @@ public class Game : MonoBehaviour
         ingameState = IngameState.Sky;
         cam.SwitchToSky();
     }
-    
-    public void OnOpenedMenu()
-    {
-        menuState = MenuState.StartMenu;
-    }
 
     public bool IsIngame()
     {
-        return menuState == MenuState.MenuClosed;
-    }
-
-    public enum MenuState
-    {
-        MenuClosed,
-        StartMenu
+        return menus.menuState == GameMenus.MenuState.MenuClosed;
     }
 
     public enum IngameState
@@ -70,5 +67,11 @@ public class Game : MonoBehaviour
         Sky,
         Ground,
         Transition
+    }
+
+    public enum GameMode
+    {
+        Story,
+        Sandbox
     }
 }

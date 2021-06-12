@@ -11,8 +11,8 @@ public class GroundManager : MonoBehaviour
     public Transform starIslandsHolder;
     public Transform starLineLinksHolder;
 
-    private List<StarIsland> starIslands = new List<StarIsland>();
-    private List<StarLineLink> starLineLinks = new List<StarLineLink>();
+    public List<StarIsland> starIslands = new List<StarIsland>();
+    public List<StarLineLink> starLineLinks = new List<StarLineLink>();
 
     public Vector3 offsetToStars = new Vector3(0f, 16f, 0f);
     
