@@ -18,7 +18,7 @@ public class ScreenshotTool : MonoBehaviour
             StopAllCoroutines();
 
             string folderPath = $"{Directory.GetCurrentDirectory()}\\Screenshots\\";
-            string fileName = "screenshot_" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss") + ".png";
+            string fileName = "screenshot_seed-" + Game.inst.config.seed + "_" + DateTime.Now.ToString("dd-MM-yyyy-HH-mm-ss") + ".png";
             string fullPath = folderPath + fileName;
             
             if (!Directory.Exists(folderPath))
@@ -28,7 +28,7 @@ public class ScreenshotTool : MonoBehaviour
             ScreenCapture.CaptureScreenshot(Path.Combine(folderPath, fileName));
             GUIUtility.systemCopyBuffer = folderPath;
 
-            StartCoroutine(HidePopupAfterSeconds(3f));
+            StartCoroutine(HidePopupAfterSeconds(4f));
         }
     }
 
