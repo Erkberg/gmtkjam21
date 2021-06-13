@@ -10,7 +10,7 @@ public class StarLineLink : MonoBehaviour
     public void Init(StarLine starLine)
     {
         this.starLine = starLine;
-        transform.SetScaleX(starLine.GetLength() / 2);
+        transform.SetScaleX(starLine.GetLength());
         transform.right = starLine.GetDirection();
     }
     
