@@ -20,10 +20,19 @@ public class GroundManager : MonoBehaviour
     public LevelEnd currentLevelEnd;
 
     public Vector3 offsetToStars = new Vector3(0f, 16f, 0f);
+    public bool invertedY = false;
     
     public void OnSwitchToGround()
     {
         
+    }
+    
+    private Vector3 CheckInvertY(Vector3 position)
+    {
+        if (invertedY)
+            position.z *= -1;
+
+        return position;
     }
 
     public void CreateObstacles(LevelData levelData)
@@ -35,6 +44,7 @@ public class GroundManager : MonoBehaviour
             ObstacleData obstacleData = levelData.obstacles[i];
             Obstacle obstacle = Instantiate(obstaclePrefab, obstaclesHolder);
             Vector3 position = new Vector3(obstacleData.position.x, Game.inst.starCreator.positionY, obstacleData.position.y) - offsetToStars;
+            position = CheckInvertY(position);
             obstacle.transform.position = position;
             obstacles.Add(obstacle);
         }
@@ -43,7 +53,9 @@ public class GroundManager : MonoBehaviour
     public void OnStarCreated(InteractableStar star, StarData.StarType starType = StarData.StarType.Regular)
     {
         StarIsland island = Instantiate(starIslandPrefab, starIslandsHolder);
-        island.transform.position = star.transform.position - offsetToStars;
+        Vector3 position = star.transform.position - offsetToStars;
+        position = CheckInvertY(position);
+        island.transform.position = position;
         island.id = star.id;
         starIslands.Add(island);
 
@@ -62,8 +74,10 @@ public class GroundManager : MonoBehaviour
     public void OnLineCreated(StarLine line)
     {
         StarLineLink link = Instantiate(starLineLinkPrefab, starLineLinksHolder);
-        link.transform.position = line.GetMidPoint() - offsetToStars;
-        link.Init(line);
+        Vector3 position = line.GetMidPoint() - offsetToStars;
+        position = CheckInvertY(position);
+        link.transform.position = position;
+        link.Init(line, invertedY);
         starLineLinks.Add(link);
     }
 

@@ -32,7 +32,6 @@ public class GameMenus : MonoBehaviour
     }
 
     #region navigation
-
     private void CheckMenuButton()
     {
         if (Game.inst.input.GetMenuButtonDown())
@@ -133,7 +132,11 @@ public class GameMenus : MonoBehaviour
         audioVolumeText.text = AudioVolumeText + newAmount.ToString("F");
         AudioListener.volume = newAmount;
     }
-    
+
+    public void OnToggleInvertY(bool value)
+    {
+        Game.inst.groundManager.invertedY = value;
+    }
     #endregion options menu
     
     #region sandbox menu
