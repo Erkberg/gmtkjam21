@@ -24,6 +24,7 @@ public class Game : MonoBehaviour
     public GameNarration narration;
     public GameLevels levels;
     public GameInteraction interaction;
+    public StarLinesAmountUI starLinesAmountUI;
 
     private void Awake()
     {
@@ -44,6 +45,7 @@ public class Game : MonoBehaviour
                 break;
             
             case GameMode.Sandbox:
+                starLinesAmountUI.SetInfinite();
                 break;
             
             default:

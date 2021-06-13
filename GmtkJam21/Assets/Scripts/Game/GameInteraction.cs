@@ -41,6 +41,18 @@ public class GameInteraction : MonoBehaviour
         }
     }
 
+    private bool CanCreateNewStarLine()
+    {
+        if (Game.inst.gameMode != Game.GameMode.Story)
+        {
+            return true;
+        }
+        else
+        {
+            return finishedStarLines.Count < Game.inst.levels.GetCurrentMaxLines();
+        }
+    }
+
     private void CheckMouseWheel()
     {
         float scrollValue = Mouse.current.scroll.ReadValue().y;
@@ -85,19 +97,17 @@ public class GameInteraction : MonoBehaviour
                             CheckLineOverlap();
                         
                         finishedStarLines.Add(currentStarLine);
+                        Game.inst.starLinesAmountUI.SetText(finishedStarLines.Count, Game.inst.levels.GetCurrentMaxLines());
                         Game.inst.groundManager.OnLineCreated(currentStarLine);
-                        Game.inst.audio.OnAddLine();
-                        
-                        currentStarLine = Instantiate(starLinePrefab, starLinesHolder);
-                        currentStarLine.SetStartStar(focusedStar);
+                        currentStarLine = null;
+
+                        TryStartNewStarLine();
                     }
                 }
                 else
                 {
                     // regular new line at focused star
-                    currentStarLine = Instantiate(starLinePrefab, starLinesHolder);
-                    currentStarLine.SetStartStar(focusedStar);
-                    Game.inst.audio.OnAddLine();
+                    TryStartNewStarLine();
                 }
             }
         }
@@ -107,6 +117,21 @@ public class GameInteraction : MonoBehaviour
             {
                 CancelStarLine();
             }
+        }
+    }
+
+    private void TryStartNewStarLine()
+    {
+        if (CanCreateNewStarLine())
+        {
+            currentStarLine = Instantiate(starLinePrefab, starLinesHolder);
+            currentStarLine.SetStartStar(focusedStar);
+            Game.inst.audio.OnAddLine();
+        }
+        else
+        {
+            CancelStarLine();
+            Game.inst.starLinesAmountUI.TriggerPopup();
         }
     }
 
@@ -129,9 +154,12 @@ public class GameInteraction : MonoBehaviour
 
     private void CancelStarLine()
     {
-        Game.inst.audio.OnRemoveLine();
-        currentStarLine.Kill();
-        currentStarLine = null;
+        if (currentStarLine)
+        {
+            Game.inst.audio.OnRemoveLine();
+            currentStarLine.Kill();
+            currentStarLine = null;
+        }
     }
     
     private void CheckFocusedStarLine()
@@ -166,6 +194,7 @@ public class GameInteraction : MonoBehaviour
     {
         yield return null;
         finishedStarLines = finishedStarLines.Where(item => item != null).ToList();
+        Game.inst.starLinesAmountUI.SetText(finishedStarLines.Count, Game.inst.levels.GetCurrentMaxLines());
     }
 
     private void CheckFocusedStar()

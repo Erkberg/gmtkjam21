@@ -49,6 +49,14 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Cheat"",
+                    ""type"": ""Button"",
+                    ""id"": ""70db97bf-de38-47fc-877a-5cdf56b61c2c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -205,6 +213,17 @@ public class @Controls : IInputActionCollection, IDisposable
                     ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4bfcecc9-c8a8-4288-aaf0-2a3df1b0b85d"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cheat"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -217,6 +236,7 @@ public class @Controls : IInputActionCollection, IDisposable
         m_Default_VerticalMovement = m_Default.FindAction("VerticalMovement", throwIfNotFound: true);
         m_Default_ResetPlayer = m_Default.FindAction("ResetPlayer", throwIfNotFound: true);
         m_Default_Menu = m_Default.FindAction("Menu", throwIfNotFound: true);
+        m_Default_Cheat = m_Default.FindAction("Cheat", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -270,6 +290,7 @@ public class @Controls : IInputActionCollection, IDisposable
     private readonly InputAction m_Default_VerticalMovement;
     private readonly InputAction m_Default_ResetPlayer;
     private readonly InputAction m_Default_Menu;
+    private readonly InputAction m_Default_Cheat;
     public struct DefaultActions
     {
         private @Controls m_Wrapper;
@@ -278,6 +299,7 @@ public class @Controls : IInputActionCollection, IDisposable
         public InputAction @VerticalMovement => m_Wrapper.m_Default_VerticalMovement;
         public InputAction @ResetPlayer => m_Wrapper.m_Default_ResetPlayer;
         public InputAction @Menu => m_Wrapper.m_Default_Menu;
+        public InputAction @Cheat => m_Wrapper.m_Default_Cheat;
         public InputActionMap Get() { return m_Wrapper.m_Default; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -299,6 +321,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Menu.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMenu;
                 @Menu.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMenu;
                 @Menu.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnMenu;
+                @Cheat.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnCheat;
+                @Cheat.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnCheat;
+                @Cheat.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnCheat;
             }
             m_Wrapper.m_DefaultActionsCallbackInterface = instance;
             if (instance != null)
@@ -315,6 +340,9 @@ public class @Controls : IInputActionCollection, IDisposable
                 @Menu.started += instance.OnMenu;
                 @Menu.performed += instance.OnMenu;
                 @Menu.canceled += instance.OnMenu;
+                @Cheat.started += instance.OnCheat;
+                @Cheat.performed += instance.OnCheat;
+                @Cheat.canceled += instance.OnCheat;
             }
         }
     }
@@ -325,5 +353,6 @@ public class @Controls : IInputActionCollection, IDisposable
         void OnVerticalMovement(InputAction.CallbackContext context);
         void OnResetPlayer(InputAction.CallbackContext context);
         void OnMenu(InputAction.CallbackContext context);
+        void OnCheat(InputAction.CallbackContext context);
     }
 }

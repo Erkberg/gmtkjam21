@@ -73,6 +73,11 @@ public class GameInput : MonoBehaviour
     {
         return GetButtonDown(controls.Default.Menu);
     }
+    
+    public bool GetCheatButtonDown()
+    {
+        return GetButtonDown(controls.Default.Cheat);
+    }
     #endregion buttons
     
     #region buttons general

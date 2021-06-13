@@ -45,6 +45,12 @@ public class GroundPlayer : MonoBehaviour
             {
                 Game.inst.levels.OnLevelFinished();
             }
+            
+            Obstacle obstacle = other.GetComponent<Obstacle>();
+            if (obstacle)
+            {
+                Respawn();
+            }
         }
     }
 

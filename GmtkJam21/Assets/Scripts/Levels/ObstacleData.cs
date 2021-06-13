@@ -5,5 +5,6 @@ using UnityEngine;
 [System.Serializable]
 public class ObstacleData
 {
-    public float posX, posZ;
+    public Vector2 position;
+    public Vector2 scale;
 }

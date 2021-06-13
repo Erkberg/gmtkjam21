@@ -10,15 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3acb7953a5baaa42b71874ce2961d24, type: 3}
-  m_Name: LevelData00
+  m_Name: LevelData04
   m_EditorClassIdentifier: 
-  id: 0
-  narrationStart: I - Straightforward
+  id: 4
+  narrationStart: V - Boxed
   narrationEnd: 
-  maxStarLines: 1
+  maxStarLines: 3
   stars:
   - starType: 1
-    position: {x: 4, y: 1}
+    position: {x: 3, y: 3}
+  - starType: 0
+    position: {x: 3, y: -3}
+  - starType: 0
+    position: {x: -3, y: 3}
   - starType: 2
-    position: {x: -3, y: -2}
-  obstacles: []
+    position: {x: -3, y: -3}
+  obstacles:
+  - position: {x: -2, y: -2}
+  - position: {x: -3, y: 0}

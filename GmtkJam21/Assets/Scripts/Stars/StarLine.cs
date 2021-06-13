@@ -96,7 +96,6 @@ public class StarLine : MonoBehaviour
 
     public void Kill()
     {
-        Debug.Log("kill");
         Destroy(gameObject);
     }
 }

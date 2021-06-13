@@ -12,6 +12,8 @@ public class StarData
     {
         Regular,
         StartPoint,
-        EndPoint
+        EndPoint,
+        StarLinePickup,
+        DisableObstacleButton
     }
 }
