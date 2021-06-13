@@ -38,6 +38,14 @@ public class GroundPlayer : MonoBehaviour
             Game.inst.audio.OnDrown();
             Respawn();
         }
+        else
+        {
+            LevelEnd levelEnd = other.GetComponent<LevelEnd>();
+            if (levelEnd)
+            {
+                Game.inst.levels.OnLevelFinished();
+            }
+        }
     }
 
     public void Spawn(Vector3 position)

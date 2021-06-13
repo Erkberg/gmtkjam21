@@ -594,6 +594,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103540346}
   m_CullTransparentMesh: 1
+--- !u!1 &104207664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 104207665}
+  m_Layer: 0
+  m_Name: Obstacles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &104207665
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104207664}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1607985513}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &115988604
 GameObject:
   m_ObjectHideFlags: 0
@@ -13660,7 +13690,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sandbox
+  m_text: 'Sandbox mode - draw freely without constraints
+
+    (infinite lines, crossing
+    lines allowed)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -19519,11 +19552,11 @@ MonoBehaviour:
   seaResolution: 100
   spacing: 0.06
   noiseScale: 0.2
-  heightScale: 1.47
+  heightScale: 1.45
   colorGradient:
     serializedVersion: 2
-    key0: {r: 0, g: 0.0021888851, b: 0.31132078, a: 0.5019608}
-    key1: {r: 0, g: 0.20698705, b: 0.3490566, a: 0.5019608}
+    key0: {r: 0.075902745, g: 0.06786223, b: 0.23584908, a: 0.5019608}
+    key1: {r: 0.25142398, g: 0.44366246, b: 0.4716981, a: 0.5019608}
     key2: {r: 0, g: 0, b: 0, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -20413,6 +20446,7 @@ Transform:
   - {fileID: 1389743370}
   - {fileID: 640249453}
   - {fileID: 881787679}
+  - {fileID: 104207665}
   - {fileID: 2057632269}
   m_Father: {fileID: 0}
   m_RootOrder: 4
@@ -20431,10 +20465,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starIslandPrefab: {fileID: 7926975479455023217, guid: 668eabf07b0bfcb45b91475285022e27, type: 3}
   starLineLinkPrefab: {fileID: 1786467359414723299, guid: a4816c55fa9873e45abc6b52fa3aea8c, type: 3}
+  levelEndPrefab: {fileID: 5826193695539617637, guid: 2b9cf926821625447aca9e559682d6f2, type: 3}
   starIslandsHolder: {fileID: 640249453}
   starLineLinksHolder: {fileID: 881787679}
   starIslands: []
   starLineLinks: []
+  currentLevelEnd: {fileID: 0}
   offsetToStars: {x: 0, y: 16, z: 0}
 --- !u!1 &1622338478
 GameObject:
@@ -20803,6 +20839,7 @@ GameObject:
   - component: {fileID: 1680744178}
   - component: {fileID: 1680744177}
   - component: {fileID: 1680744182}
+  - component: {fileID: 1680744183}
   - component: {fileID: 1680744180}
   - component: {fileID: 1680744181}
   - component: {fileID: 1680744179}
@@ -20837,6 +20874,8 @@ MonoBehaviour:
   menus: {fileID: 1499429224}
   audio: {fileID: 685323685}
   narration: {fileID: 861865014}
+  levels: {fileID: 1680744183}
+  interaction: {fileID: 1680744182}
 --- !u!4 &1680744178
 Transform:
   m_ObjectHideFlags: 0
@@ -20913,6 +20952,22 @@ MonoBehaviour:
   focusedStar: {fileID: 0}
   currentStarLine: {fileID: 0}
   finishedStarLines: []
+--- !u!114 &1680744183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1680744176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adc19c8d2fa6f6943934adc8f6ae0fe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - {fileID: 11400000, guid: 9e9e44a7c1710304d8a278ce55ebbcdc, type: 2}
+  - {fileID: 11400000, guid: 2a2c43427e8e35a4aa83315262b6b0f0, type: 2}
+  currentLevel: 0
 --- !u!1 &1689623025
 GameObject:
   m_ObjectHideFlags: 0
@@ -31620,7 +31675,7 @@ Transform:
   m_Children:
   - {fileID: 257589266}
   m_Father: {fileID: 1607985513}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2057632270
 Rigidbody:

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ErksUnityLibrary;
 using UnityEngine;
 
 public class StarCreator : MonoBehaviour
@@ -14,6 +15,22 @@ public class StarCreator : MonoBehaviour
 
     public List<InteractableStar> stars = new List<InteractableStar>();
 
+    public void CreateLevelStars(LevelData levelData)
+    {
+        ClearStars();
+        
+        for (int i = 0; i < levelData.stars.Count; i++)
+        {
+            StarData starData = levelData.stars[i];
+            InteractableStar star = Instantiate(starPrefab, starsHolder);
+            star.InitWithId(i);
+            Vector3 position = new Vector3(starData.position.x, positionY, starData.position.y);
+            star.transform.position = position;
+            stars.Add(star);
+            Game.inst.groundManager.OnStarCreated(star, starData.starType);
+        }
+    }
+    
     public void RecreateRandomStars(int amount, int seed)
     {
         ClearStars();
@@ -33,7 +50,7 @@ public class StarCreator : MonoBehaviour
             Game.inst.groundManager.OnStarCreated(star);
         }
         
-        Game.inst.OnStarsCreated();
+        Game.inst.groundPlayer.Spawn(Game.inst.groundManager.starIslands.GetRandomItem().transform.position);
     }
 
     private void ClearStars()
@@ -44,7 +61,7 @@ public class StarCreator : MonoBehaviour
         }
         
         stars.Clear();
-        Game.inst.groundManager.ResetIslands();
+        Game.inst.groundManager.ResetAll();
     }
 
     private Vector3 GetRandomValidStarPosition()

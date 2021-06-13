@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -187,5 +188,15 @@ public class GameInteraction : MonoBehaviour
             focusedStar.SetFocused(false);
             focusedStar = null;
         }
+    }
+
+    public void ResetStarLines()
+    {
+        foreach (StarLine starLine in finishedStarLines.ToList())
+        {
+            starLine.Kill();
+        }
+        
+        finishedStarLines.Clear();
     }
 }

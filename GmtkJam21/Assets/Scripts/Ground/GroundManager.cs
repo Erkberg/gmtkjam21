@@ -7,12 +7,14 @@ public class GroundManager : MonoBehaviour
 {
     public StarIsland starIslandPrefab;
     public StarLineLink starLineLinkPrefab;
-    
+    public LevelEnd levelEndPrefab;
+
     public Transform starIslandsHolder;
     public Transform starLineLinksHolder;
 
     public List<StarIsland> starIslands = new List<StarIsland>();
     public List<StarLineLink> starLineLinks = new List<StarLineLink>();
+    public LevelEnd currentLevelEnd;
 
     public Vector3 offsetToStars = new Vector3(0f, 16f, 0f);
     
@@ -21,12 +23,29 @@ public class GroundManager : MonoBehaviour
         
     }
 
-    public void OnStarCreated(InteractableStar star)
+    public void CreateObstacles(LevelData levelData)
+    {
+        ResetObstacles();
+
+    }
+
+    public void OnStarCreated(InteractableStar star, StarData.StarType starType = StarData.StarType.Regular)
     {
         StarIsland island = Instantiate(starIslandPrefab, starIslandsHolder);
         island.transform.position = star.transform.position - offsetToStars;
         island.id = star.id;
         starIslands.Add(island);
+
+        if (starType == StarData.StarType.StartPoint)
+        {
+            Game.inst.groundPlayer.Spawn(island.transform.position);
+        }
+        
+        if (starType == StarData.StarType.EndPoint)
+        {
+            currentLevelEnd = Instantiate(levelEndPrefab, transform);
+            currentLevelEnd.transform.position = island.transform.position;
+        }
     }
 
     public void OnLineCreated(StarLine line)
@@ -54,6 +73,10 @@ public class GroundManager : MonoBehaviour
     {
         ResetIslands();
         ResetLinks();
+        ResetObstacles();
+        
+        if(currentLevelEnd)
+            Destroy(currentLevelEnd.gameObject);
     }
 
     public void ResetIslands()
@@ -72,5 +95,10 @@ public class GroundManager : MonoBehaviour
             starLineLink.Kill();
         }
         starLineLinks.Clear();
+    }
+
+    public void ResetObstacles()
+    {
+        
     }
 }

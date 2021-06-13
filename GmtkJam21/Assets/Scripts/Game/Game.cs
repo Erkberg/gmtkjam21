@@ -22,6 +22,8 @@ public class Game : MonoBehaviour
     public GameMenus menus;
     public GameAudio audio;
     public GameNarration narration;
+    public GameLevels levels;
+    public GameInteraction interaction;
 
     private void Awake()
     {
@@ -30,14 +32,23 @@ public class Game : MonoBehaviour
         starCreator.CreateRandomStars(config.starsAmount, config. seed);
     }
 
-    public void OnStarsCreated()
-    {
-        groundPlayer.Spawn(groundManager.starIslands.GetRandomItem().transform.position);
-    }
-
     public void StartGame()
     {
-        
+        switch (gameMode)
+        {
+            case GameMode.None:
+                break;
+            
+            case GameMode.Story:
+                levels.StartFromFirstLevel();
+                break;
+            
+            case GameMode.Sandbox:
+                break;
+            
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     public void PauseGame()
