@@ -63,6 +63,13 @@ public class Game : MonoBehaviour
         
     }
 
+    public void ResetAll()
+    {
+        starCreator.ClearStars();
+        interaction.ResetStarLines();
+        groundManager.ResetAll();
+    }
+
     public void OnConfigChanged()
     {
         starCreator.RecreateRandomStars(config.starsAmount, config. seed);

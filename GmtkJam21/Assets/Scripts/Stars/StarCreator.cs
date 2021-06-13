@@ -53,7 +53,7 @@ public class StarCreator : MonoBehaviour
         Game.inst.groundPlayer.Spawn(Game.inst.groundManager.starIslands.GetRandomItem().transform.position);
     }
 
-    private void ClearStars()
+    public void ClearStars()
     {
         foreach (InteractableStar star in stars.ToList())
         {

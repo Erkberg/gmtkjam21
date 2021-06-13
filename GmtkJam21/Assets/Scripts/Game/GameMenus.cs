@@ -36,25 +36,22 @@ public class GameMenus : MonoBehaviour
     {
         if (Game.inst.input.GetMenuButtonDown())
         {
-            if (Game.inst.gameMode != Game.GameMode.None)
+            if (Game.inst.gameMode != Game.GameMode.None && menuState == MenuState.MenuClosed)
             {
-                if (menuState == MenuState.MenuClosed)
-                {
-                    mainMenuSubtitle.SetActive(false);
-                    mainMenuContinueButton.SetActive(true);
-                    menuState = MenuState.StartMenu;
-                    Game.inst.PauseGame();
-                    menusHolder.SetActive(true);
-                    OnBackButtonPressed();
-                }
-                else if (menuState == MenuState.StartMenu)
-                {
-                    OnContinueButtonPressed();
-                }
-                else
-                {
-                    OnBackButtonPressed();
-                }
+                mainMenuSubtitle.SetActive(false);
+                mainMenuContinueButton.SetActive(true);
+                menuState = MenuState.StartMenu;
+                Game.inst.PauseGame();
+                menusHolder.SetActive(true);
+                OnBackButtonPressed();
+            }
+            else if (Game.inst.gameMode != Game.GameMode.None && menuState == MenuState.StartMenu)
+            {
+                OnContinueButtonPressed();
+            }
+            else if(menuState != MenuState.MenuClosed && menuState != MenuState.StartMenu)
+            {
+                OnBackButtonPressed();
             }
         }
     }
@@ -76,15 +73,19 @@ public class GameMenus : MonoBehaviour
     
     public void OnSandboxMenuButtonPressed()
     {
+        mainMenuSubtitle.SetActive(true);
+        mainMenuContinueButton.SetActive(false);
+        Game.inst.gameMode = Game.GameMode.Sandbox;
         menuState = MenuState.SandboxMenu;
         mainMenu.SetActive(false);
         sandboxMenu.SetActive(true);
+        Game.inst.starLinesAmountUI.SetInfinite();
+        TriggerReload();
     }
 
     public void OnSandboxStartButtonPressed()
     {
         menuState = MenuState.MenuClosed;
-        Game.inst.gameMode = Game.GameMode.Sandbox;
         menusHolder.SetActive(false);
         Game.inst.StartGame();
     }
@@ -105,6 +106,7 @@ public class GameMenus : MonoBehaviour
 
     public void OnBackButtonPressed()
     {
+        menuState = MenuState.StartMenu;
         mainMenu.SetActive(true);
         sandboxMenu.SetActive(false);
         tutorialMenu.SetActive(false);

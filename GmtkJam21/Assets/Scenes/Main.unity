@@ -8657,7 +8657,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1499429224}
         m_TargetAssemblyTypeName: GameMenus, Assembly-CSharp
-        m_MethodName: OnStoryButtonPressed
+        m_MethodName: OnContinueButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15430,7 +15430,9 @@ MonoBehaviour:
 
 
     Print
-    key to save a screenshot'
+    key to save a screenshot
+
+    Esc to open menu'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

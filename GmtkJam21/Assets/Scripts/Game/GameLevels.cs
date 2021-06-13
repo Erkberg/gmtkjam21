@@ -20,6 +20,7 @@ public class GameLevels : MonoBehaviour
 
     public void StartFromFirstLevel()
     {
+        Game.inst.ResetAll();
         currentLevel = 0;
         StartCurrentLevel();
     }
