@@ -21,7 +21,10 @@ public class GameMenus : MonoBehaviour
     public TextMeshProUGUI starsAmountText;
     public TMP_InputField seedInputField;
 
+    public TextMeshProUGUI audioVolumeText;
+
     private const string StarsAmountText = "Stars amount: ";
+    private const string AudioVolumeText = "Audio volume: ";
 
     private void Update()
     {
@@ -123,6 +126,15 @@ public class GameMenus : MonoBehaviour
         OptionsMenu
     }
     #endregion navigation
+    
+    #region options menu
+    public void OnAudioVolumeChanged(float newAmount)
+    {
+        audioVolumeText.text = AudioVolumeText + newAmount.ToString("F");
+        AudioListener.volume = newAmount;
+    }
+    
+    #endregion options menu
     
     #region sandbox menu
     public void OnStarsAmountChanged(float newAmount)
