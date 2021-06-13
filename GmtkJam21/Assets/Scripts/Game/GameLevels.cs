@@ -30,6 +30,7 @@ public class GameLevels : MonoBehaviour
     
     public void StartCurrentLevel()
     {
+        Game.inst.narration.ShowText(levels[currentLevel].narrationStart);
         Game.inst.starCreator.CreateLevelStars(levels[currentLevel]);
     }
 }

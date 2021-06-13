@@ -80,6 +80,10 @@ public class GameInteraction : MonoBehaviour
                     {
                         // end line at end star and immediately start new line there
                         currentStarLine.SetEndStar(focusedStar);
+                        
+                        if(Game.inst.gameMode == Game.GameMode.Story)
+                            CheckLineOverlap();
+                        
                         finishedStarLines.Add(currentStarLine);
                         Game.inst.groundManager.OnLineCreated(currentStarLine);
                         Game.inst.audio.OnAddLine();
@@ -106,13 +110,25 @@ public class GameInteraction : MonoBehaviour
         }
     }
 
+    private void CheckLineOverlap()
+    {
+        foreach (StarLine otherStarLine in finishedStarLines.ToList())
+        {
+            if (otherStarLine != null)
+            {
+                if (LineSegmentsIntersect(currentStarLine.GetOffsetStartPosition2D(), currentStarLine.GetOffsetEndPosition2D(),
+                    otherStarLine.GetOffsetStartPosition2D(), otherStarLine.GetOffsetEndPosition2D()))
+                {
+                    RemoveStarLine(otherStarLine);
+                }
+            }
+        }
+    }
+    
+    public static bool LineSegmentsIntersect(Vector2 lineOneA, Vector2 lineOneB, Vector2 lineTwoA, Vector2 lineTwoB) { return (((lineTwoB.y - lineOneA.y) * (lineTwoA.x - lineOneA.x) > (lineTwoA.y - lineOneA.y) * (lineTwoB.x - lineOneA.x)) != ((lineTwoB.y - lineOneB.y) * (lineTwoA.x - lineOneB.x) > (lineTwoA.y - lineOneB.y) * (lineTwoB.x - lineOneB.x)) && ((lineTwoA.y - lineOneA.y) * (lineOneB.x - lineOneA.x) > (lineOneB.y - lineOneA.y) * (lineTwoA.x - lineOneA.x)) != ((lineTwoB.y - lineOneA.y) * (lineOneB.x - lineOneA.x) > (lineOneB.y - lineOneA.y) * (lineTwoB.x - lineOneA.x))); }
+
     private void CancelStarLine()
     {
-        if (finishedStarLines.Contains(currentStarLine))
-        {
-            finishedStarLines.Remove(currentStarLine);
-        }
-
         Game.inst.audio.OnRemoveLine();
         currentStarLine.Kill();
         currentStarLine = null;
@@ -128,15 +144,28 @@ public class GameInteraction : MonoBehaviour
             StarLine hitStarLine = hit.transform.GetComponent<StarLine>();
             if (hitStarLine && !currentStarLine && Mouse.current.rightButton.wasPressedThisFrame)
             {
-                Game.inst.groundManager.OnLineDestroyed(hitStarLine);
-                Game.inst.audio.OnRemoveLine();
-                hitStarLine.Kill();
+                RemoveStarLine(hitStarLine);
             }
         }
         else
         {
             OnNoStarFocused();
         }
+    }
+
+    private void RemoveStarLine(StarLine line)
+    {
+        Game.inst.groundManager.OnLineDestroyed(line);
+        Game.inst.audio.OnRemoveLine();
+        line.Kill();
+
+        StartCoroutine(UpdateListAtEndOfFrame());
+    }
+
+    private IEnumerator UpdateListAtEndOfFrame()
+    {
+        yield return null;
+        finishedStarLines = finishedStarLines.Where(item => item != null).ToList();
     }
 
     private void CheckFocusedStar()

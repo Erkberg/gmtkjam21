@@ -13,6 +13,9 @@ public class GameNarration : MonoBehaviour
 
     public void ShowText(string s)
     {
+        if (string.IsNullOrEmpty(s))
+            return;
+        
         StopAllCoroutines();
         text.text = s;
         textbox.SetActive(true);

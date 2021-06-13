@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,11 @@ public class StarLine : MonoBehaviour
     public InteractableStar startStar;
     public InteractableStar endStar;
     public string id;
+
+    private void OnCollisionEnter(Collision other)
+    {
+        Debug.Log(other.collider.name);
+    }
 
     public void SetStartStar(InteractableStar startStar)
     {
@@ -53,8 +59,44 @@ public class StarLine : MonoBehaviour
         return endStar.transform.position - startStar.transform.position;
     }
 
+    public Vector2 GetDirection2D()
+    {
+        return GetEndPosition2D() - GetStartPosition2D();
+    }
+
+    public Vector3 GetStartPosition()
+    {
+        return startStar.transform.position;
+    }
+
+    public Vector3 GetEndPosition()
+    {
+        return endStar.transform.position;
+    }
+    
+    public Vector2 GetStartPosition2D()
+    {
+        return new Vector2(GetStartPosition().x, GetStartPosition().z);
+    }
+
+    public Vector2 GetEndPosition2D()
+    {
+        return new Vector2(GetEndPosition().x, GetEndPosition().z);
+    }
+    
+    public Vector2 GetOffsetStartPosition2D()
+    {
+        return GetStartPosition2D() + GetDirection2D().normalized * 0.1f;
+    }
+
+    public Vector2 GetOffsetEndPosition2D()
+    {
+        return GetEndPosition2D() - GetDirection2D().normalized * 0.1f;
+    }
+
     public void Kill()
     {
+        Debug.Log("kill");
         Destroy(gameObject);
     }
 }
