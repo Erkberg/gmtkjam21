@@ -21,6 +21,7 @@ public class Game : MonoBehaviour
     public GameInput input;
     public GameMenus menus;
     public GameAudio audio;
+    public GameNarration narration;
 
     private void Awake()
     {
