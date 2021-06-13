@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LevelData06
   m_EditorClassIdentifier: 
   id: 6
-  narrationStart: VII - Narrow passage
+  narrationStart: VII - Passage
   narrationEnd: 
   maxStarLines: 3
   stars:
@@ -34,9 +34,9 @@ MonoBehaviour:
     scale: {x: 0, y: 0}
   - position: {x: -2, y: 0}
     scale: {x: 0, y: 0}
-  - position: {x: 0, y: 0}
-    scale: {x: 0, y: 0}
-  - position: {x: 2, y: 0}
-    scale: {x: 0, y: 0}
   - position: {x: 4, y: 0}
+    scale: {x: 0, y: 0}
+  - position: {x: 0.4, y: 0}
+    scale: {x: 0, y: 0}
+  - position: {x: 1.6, y: 0}
     scale: {x: 0, y: 0}

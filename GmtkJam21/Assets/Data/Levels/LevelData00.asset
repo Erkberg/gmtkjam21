@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: LevelData00
   m_EditorClassIdentifier: 
   id: 0
-  narrationStart: I - Straightforward
+  narrationStart: I - Outset
   narrationEnd: 
   maxStarLines: 1
   stars:
   - starType: 1
-    position: {x: 4, y: 1}
+    position: {x: 0, y: 3}
   - starType: 2
-    position: {x: -3, y: -2}
+    position: {x: 0, y: -3}
   obstacles: []
