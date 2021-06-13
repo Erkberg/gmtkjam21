@@ -97,7 +97,10 @@ public class GameInteraction : MonoBehaviour
                             CheckLineOverlap();
                         
                         finishedStarLines.Add(currentStarLine);
-                        Game.inst.starLinesAmountUI.SetText(finishedStarLines.Count, Game.inst.levels.GetCurrentMaxLines());
+                        
+                        if(Game.inst.gameMode == Game.GameMode.Story)
+                            Game.inst.starLinesAmountUI.SetText(finishedStarLines.Count, Game.inst.levels.GetCurrentMaxLines());
+                        
                         Game.inst.groundManager.OnLineCreated(currentStarLine);
                         currentStarLine = null;
 

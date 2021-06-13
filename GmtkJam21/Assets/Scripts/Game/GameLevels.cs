@@ -8,6 +8,8 @@ public class GameLevels : MonoBehaviour
     public List<LevelData> levels;
     public int currentLevel = 0;
 
+    private const string EndText = "Reached end of current story content...\n Congratulations and thanks for playing!\n(try Sandbox mode for a relaxed, creative experience)";
+
     private void Update()
     {
         if (Game.inst.gameMode == Game.GameMode.Story && Game.inst.input.GetCheatButtonDown())
@@ -29,7 +31,7 @@ public class GameLevels : MonoBehaviour
 
         if (currentLevel >= levels.Count)
         {
-            Debug.Log("game finished!");
+            Game.inst.narration.ShowText(EndText);
         }
         else
         {
