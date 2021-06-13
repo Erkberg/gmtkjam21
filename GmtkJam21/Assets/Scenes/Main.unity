@@ -2927,10 +2927,12 @@ MonoBehaviour:
   switchAbove: {fileID: 8300000, guid: 125c9d4423bdfb0479cdc04b9ac6a0a4, type: 3}
   switchBelow: {fileID: 8300000, guid: 938c779005c6bc744a9eb496e3f40fd8, type: 3}
   drownClip: {fileID: 8300000, guid: 4687aaa684470b44284f8a9247b3441f, type: 3}
-  focusStarClip: {fileID: 8300000, guid: 818eab77e1c10be4e803477098993d8c, type: 3}
+  obstacleClip: {fileID: 8300000, guid: 6b0b0e584a1618f4bace7612e069900d, type: 3}
+  focusStarClip: {fileID: 8300000, guid: d7ba61a7049277b4aa79f6c6fda74b0f, type: 3}
   unfocusStarClip: {fileID: 8300000, guid: 477e6cd84370d9c43b34e3ba21f21866, type: 3}
   addLineClip: {fileID: 8300000, guid: 1009985380121c246a78b9fbf99c057a, type: 3}
   removeLineClip: {fileID: 8300000, guid: d0a30d324794bfb428179fb1727acb07, type: 3}
+  levelFinishedClip: {fileID: 8300000, guid: bd6c15ff982053b4cbdbf7f634123a70, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

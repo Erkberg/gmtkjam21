@@ -49,6 +49,7 @@ public class GroundPlayer : MonoBehaviour
             Obstacle obstacle = other.GetComponent<Obstacle>();
             if (obstacle)
             {
+                Game.inst.audio.OnObstacle();
                 Respawn();
             }
         }

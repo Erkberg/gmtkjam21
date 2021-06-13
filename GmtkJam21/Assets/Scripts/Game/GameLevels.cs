@@ -26,6 +26,7 @@ public class GameLevels : MonoBehaviour
     
     public void OnLevelFinished()
     {
+        Game.inst.audio.OnLevelFinished();
         Game.inst.interaction.ResetStarLines();
         currentLevel++;
 

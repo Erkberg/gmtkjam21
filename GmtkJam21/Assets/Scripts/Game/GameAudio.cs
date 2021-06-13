@@ -19,12 +19,15 @@ public class GameAudio : MonoBehaviour
 
     [Space]
     public AudioClip drownClip;
+    public AudioClip obstacleClip;
 
     public AudioClip focusStarClip;
     public AudioClip unfocusStarClip;
 
     public AudioClip addLineClip;
     public AudioClip removeLineClip;
+
+    public AudioClip levelFinishedClip;
 
     private float atmoVolume;
 
@@ -51,10 +54,20 @@ public class GameAudio : MonoBehaviour
     {
         asSounds.PlayOneShotRandomVolumePitch(drownClip);
     }
+    
+    public void OnObstacle()
+    {
+        asSounds.PlayOneShotRandomVolumePitch(obstacleClip);
+    }
+
+    public void OnLevelFinished()
+    {
+        asSounds.PlayOneShotRandomVolume(levelFinishedClip);
+    }
 
     public void OnFocusStar()
     {
-        asSounds.PlayOneShotRandomVolume(focusStarClip);
+        asSounds.PlayOneShotRandomVolume(focusStarClip, baseVolume: 0.5f);
     }
     
     public void OnUnfocusStar()
