@@ -197,7 +197,9 @@ public class GameInteraction : MonoBehaviour
     {
         yield return null;
         finishedStarLines = finishedStarLines.Where(item => item != null).ToList();
-        Game.inst.starLinesAmountUI.SetText(finishedStarLines.Count, Game.inst.levels.GetCurrentMaxLines());
+        
+        if(Game.inst.gameMode == Game.GameMode.Story)
+            Game.inst.starLinesAmountUI.SetText(finishedStarLines.Count, Game.inst.levels.GetCurrentMaxLines());
     }
 
     private void CheckFocusedStar()
